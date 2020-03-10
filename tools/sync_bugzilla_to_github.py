@@ -29,8 +29,8 @@ from github import Github
 DRY_RUN = False
 VERBOSE_DEBUG = False
 
-GH_REPO = 'mozilla/application-services-bug-mirror'
-GH_OLD_REPOS = ['mozilla/application-services']
+GH_REPO = 'mikedeboer/search-bug-mirror'
+GH_OLD_REPOS = []
 GH_LABEL = 'bugzilla'
 
 BZ_URL = 'https://bugzilla.mozilla.org/rest'
@@ -323,9 +323,27 @@ def sync_bugzilla_to_github():
     # Find the sets of bugs in bugzilla that we want to mirror.
     log('Finding relevant bugs in bugzilla...')
     bugs = BugSet(os.environ.get('BZ_API_KEY'))
-    bugs.update_from_bugzilla(product='Firefox', component='Firefox Accounts',
+    bugs.update_from_bugzilla(product='Firefox', component='Address Bar',
                               resolved=False, creation_time=MIN_CREATION_TIME)
-    bugs.update_from_bugzilla(product='Firefox', component='Sync',
+    bugs.update_from_bugzilla(product='Firefox', component='Bookmarks & History',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Firefox', component='Downloads Panel',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Firefox', component='Search',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Firefox', component='Session Restore',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Firefox', component='Tabbed Browser',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Toolkit', component='Downloads API',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Toolkit', component='Find Toolbar',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Toolkit', component='Places',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Toolkit', component='Storage',
+                              resolved=False, creation_time=MIN_CREATION_TIME)
+    bugs.update_from_bugzilla(product='Core', component='Find Backend',
                               resolved=False, creation_time=MIN_CREATION_TIME)
     log('Found {} bugzilla bugs', len(bugs))
 
